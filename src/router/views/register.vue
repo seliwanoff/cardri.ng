@@ -115,7 +115,7 @@ export default {
         <div class="text-center">
           <a href="/">
             <span>
-              <img src="@assets/images/logo.png" alt="" height="22" />
+              <img src="@assets/images/logo.png" alt="" height="33" />
             </span>
           </a>
           <p class="text-muted mt-2 mb-4"></p>

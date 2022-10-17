@@ -163,14 +163,14 @@ export default {
               <div style="text-align: center; color: #fff">
                 <h6 class="text-white">
                   Manual Account Number
-                  <div style="margin-top: 4px">{{ user.data.bank }}</div>
+                  <div style="margin-top: 4px">3000124228</div>
                   <input v-model="bank" type="hidden" name="" class="copy" />
                 </h6>
               </div>
               <div style="text-align: center; color: #fff">
                 <h6 class="text-white">
                   Bank Name
-                  <div style="margin-top: 4px">{{ user.data.bankname }}</div>
+                  <div style="margin-top: 4px">Kuda Bank</div>
                 </h6>
               </div>
             </div>

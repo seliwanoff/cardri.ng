@@ -13,9 +13,8 @@ if (process.env.VUE_APP_TEST === 'e2e') {
   // Ensure tests fail when Vue emits an error.
   Vue.config.errorHandler = window.Cypress.cy.onUncaughtException
 }
-store.dispatch('attempt',localStorage.getItem('token'))
- 
-Vue.use(BootstrapVue)
+store.dispatch('attempt',localStorage.getItem('token')).then(()=>{
+  Vue.use(BootstrapVue)
 
 const app = new Vue({
   router,
@@ -30,3 +29,5 @@ if (process.env.VUE_APP_TEST === 'e2e') {
   // such as `cy.logIn()`.
   window.__app__ = app
 }
+})
+ 

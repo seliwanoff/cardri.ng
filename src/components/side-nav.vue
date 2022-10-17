@@ -12,7 +12,7 @@ export default {
       username: "",
       image: "",
       usertype: "",
-      url: "https://tap.150psi.com/public/storage/images/",
+      url: "https://api.cardri.ng/storage/images/",
     };
   },
 
@@ -80,19 +80,124 @@ export default {
           </a>
           <ul class="nav-second-level nav" aria-expanded="false">
             <li>
-              <router-link to="../service/airtime"> Buy Airtime</router-link>
+              <router-link
+                to="/service/airtime"
+                style="justify-content: flex-start; display: flex"
+                ><span
+                  style="
+                    padding: 4px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    background: #4705af;
+                    display: flex;
+                    align-items: center;
+                    place-items: center;
+                    margin-right: 10px;
+                    color: #fff;
+                    justify-content: center;
+                  "
+                >
+                  <i class="mdi mdi-cellphone-android"></i>
+                </span>
+                Airtime
+              </router-link>
             </li>
             <li>
-              <router-link to="../service/data">Buy Data</router-link>
+              <router-link
+                to="/service/data"
+                style="justify-content: flex-start; display: flex"
+                ><span
+                  style="
+                    padding: 4px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    background: #4705af;
+                    display: flex;
+                    align-items: center;
+                    place-items: center;
+                    margin-right: 10px;
+                    color: #fff;
+                    justify-content: center;
+                  "
+                >
+                  <i class="mdi mdi-wifi"></i>
+                </span>
+                Data
+              </router-link>
             </li>
             <li>
-              <router-link to="../service/transfer">Transfer</router-link>
+              <router-link
+                to="/service/cable"
+                style="justify-content: flex-start; display: flex"
+                ><span
+                  style="
+                    padding: 4px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    background: #4705af;
+                    display: flex;
+                    align-items: center;
+                    place-items: center;
+                    margin-right: 10px;
+                    color: #fff;
+                    justify-content: center;
+                  "
+                >
+                  <i class="mdi mdi-television"></i>
+                </span>
+                Tv
+              </router-link>
             </li>
             <li>
-              <router-link to="../service/bill">Bill</router-link>
+              <router-link
+                to="/service/bill"
+                style="justify-content: flex-start; display: flex"
+                ><span
+                  style="
+                    padding: 4px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    background: #4705af;
+                    display: flex;
+                    align-items: center;
+                    place-items: center;
+                    margin-right: 10px;
+                    color: #fff;
+                    justify-content: center;
+                  "
+                >
+                  <i class="mdi mdi-lightbulb"></i>
+                </span>
+                Bill
+              </router-link>
             </li>
             <li>
-              <router-link to="../service/cable">Cable & Tv</router-link>
+              <router-link
+                to="/service/transfer"
+                style="justify-content: flex-start; display: flex"
+                ><span
+                  style="
+                    padding: 4px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    background: #4705af;
+                    display: flex;
+                    align-items: center;
+                    place-items: center;
+                    margin-right: 10px;
+                    color: #fff;
+                    justify-content: center;
+                  "
+                >
+                  <i class="mdi mdi-sync"></i>
+                </span>
+                Transfer
+              </router-link>
             </li>
             <li>
               <router-link to="../service/investment">Investment</router-link>

@@ -7,11 +7,13 @@ export default [
     component: () => lazyLoadView(import('@views/home')),
     meta: {
       authRequired: false,
+
       title: 'Dashboard' 
     },
-   
+ 
     
     props: (route) => ({ user: store.state.user || {}}),
+    
     
 
  },

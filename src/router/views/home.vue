@@ -20,7 +20,7 @@ export default {
       letdrops: "",
       hidemes: true,
       image: null,
-      url: "https://tap.150psi.com/public/storage/images/",
+      url: "https://cardri.ng/public/storage/images/",
       isLoading: true,
       fullPage: true,
       color: "#0A1AA8",
@@ -45,11 +45,16 @@ export default {
     }
     try {
       const transaction = await axios.get(
-        `${process.env.VUE_APP_BASE_URL}api/gettransaction?type=2`
+        `${process.env.VUE_APP_BASE_URL}api/gettransaction`
       );
 
       this.transaction = transaction.data.data;
-    } catch (e) {}
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.$router.push("/login");
+        localStorage.removeItem("admin");
+      }
+    }
   },
 };
 </script>
@@ -59,6 +64,27 @@ export default {
     <div class="row">
       <div class="col-md-12">
         <Balance />
+        <b-card class="bg-#4705af" style="background: #4705af; height: 90px">
+          <router-link to="/service/refer">
+            <h6 style="color: #fff; margin: 0px !important; padding: 0px !important">
+              Refer & Earn
+            </h6>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-top: 5px;
+                color: #fff;
+                font-weight: 100 Important;
+              "
+            >
+              <p style="font-weight: 100; font-size: 0.8rem">
+                Earn Rewards for inviting business to Cardri
+              </p>
+              <span class="mdi mdi-arrow-right"></span>
+            </div>
+          </router-link>
+        </b-card>
         <div class="w-100 d-inline-block d-sm-flex m-10">
           <b-card class="w-100 mr-1">
             <div class="d-flex justify-content-between w-100">
@@ -131,7 +157,7 @@ export default {
                 class="border w-100 border-2 border-primary"
                 style="#000 color: #000;"
               >
-                <router-link to="./service/refer">
+                <router-link to="./service/betting">
                   <div
                     class="d-flex justify-content-center -mt-2"
                     style="margin-top: -15px"
@@ -141,7 +167,7 @@ export default {
                       style="font-size: 1.2rem"
                     ></i>
                   </div>
-                  <div style="text-align: center;w-100; font-size: 0.7rem">Refer</div>
+                  <div style="text-align: center;w-100; font-size: 0.7rem">Betting</div>
                 </router-link>
               </b-card>
               <b-card
@@ -206,32 +232,29 @@ export default {
           </b-card>
         </div>
         <h4 class="text-muted">Recent Transaction</h4>
-        <b-card v-if="transaction.lenth > 0" style="max-width: 100%; width: 100%">
+        <b-card v-if="transaction.length > 0" style="max-width: 100%; width: 100%">
           <div v-for="item in transaction" :key="item.id" style="height: 50px">
             <div
               class="float-left"
               style="
-                height: 40px;
-                width: 40px;
+                height: 35px;
+                width: 35px;
                 border-radius: 100%;
-                border: 1px solid black;
+                border: 1px solid grey;
                 place-items: center;
                 display: flex;
                 align-items: center;
+                justify-content: center;
               "
             >
-              <img
-                src=""
-                alt=""
-                width="100%"
-                height="100%"
-                style="border-radius: 100%; overflow: hidden"
-              />
+              <i v-if="item.type === '1'" class="mdi mdi-tablet-android icons-pic"></i>
+              <i v-if="item.type === '2'" class="mdi mdi-tablet-android icons-pic"></i>
+              <i v-if="item.type === '3'" class="mdi mdi-television icons-pic"></i>
+              <i v-if="item.type === '4'" class="mdi mdi-sync icons-pic"></i>
+              <i v-if="item.type === '5'" class="mdi mdi-lightbulb icons-pic"></i>
+              <i v-if="item.type === '6'" class="mdi mdi-bank icons-pic"></i>
             </div>
-            <div
-              class="float-right"
-              style="width: calc(100% - 100px); margin-right: 20px"
-            >
+            <div class="float-right" style="width: calc(100% - 50px)">
               <div class="d-flex justify-content-between">
                 <div>
                   <span v-if="item.network === '1'">MTN</span>
@@ -240,12 +263,16 @@ export default {
                   <span v-else-if="item.network === '4'">GLO</span>
                   <span v-else>{{ item.network }}</span>
                 </div>
-                <span>&#8358;{{ item.amount }}</span>
+                <span>&#8358;{{ Intl.NumberFormat().format(item.amount) }}</span>
               </div>
               <div class="d-flex justify-content-between">
-                <span>{{ moment(item.updated_at).format("DD-MM-YYYY") }}</span>
-                <span v-if="item.status === '1'" style="font-size: 0.8rem">sent</span>
-                <span v-if="item.status === '0'" style="font-size: 0.8rem">failed</span>
+                <span>{{ moment(item.updated_at).fromNow() }}</span>
+                <span v-if="item.status === '1'" style="font-size: 0.8rem; color: green"
+                  >sent</span
+                >
+                <span v-if="item.status === '0'" style="font-size: 0.8rem; color: crimson"
+                  >failed</span
+                >
               </div>
             </div>
           </div>
@@ -255,3 +282,11 @@ export default {
     </div>
   </Layout>
 </template>
+<style scoped>
+.icons-pic {
+  display: flex;
+
+  align-self: center;
+  margin: 0px auto;
+}
+</style>

@@ -2,6 +2,7 @@
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import { authComputed } from "@state/helpers";
 import SideNav from "./side-nav";
+import { mapGetters } from "vuex";
 
 export default {
   components: { VuePerfectScrollbar, SideNav },
@@ -9,11 +10,6 @@ export default {
     isCondensed: {
       type: Boolean,
       default: false,
-    },
-    user: {
-      type: String,
-      required: false,
-      default: () => ({}),
     },
   },
   data() {
@@ -25,6 +21,7 @@ export default {
   },
   computed: {
     ...authComputed,
+    ...mapGetters(["user"]),
   },
   methods: {},
 };

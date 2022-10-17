@@ -22,7 +22,7 @@ export default {
       letdrops: "",
       hidemes: true,
       image: null,
-      url: "https://tap.150psi.com/public/storage/images/",
+      url: "https://api.cardri.ng/public/storage/images/",
       isLoading: true,
       fullPage: true,
       color: "#0A1AA8",
@@ -62,7 +62,6 @@ export default {
       this.commission = user.data.data.commission;
       this.apitoken = user.data.data.token;
       this.key = user.data.data.tstatus;
-
       if (this.key === "1") {
         this.disablechecked = true;
       } else {
@@ -84,8 +83,39 @@ export default {
   },
 
   methods: {
+    async regenerateToken() {
+      const datas = {
+        ids: "1",
+      };
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BASE_URL}api/chnagetoken`,
+          datas
+        );
+        console.log(response);
+        this.status = true;
+        this.message = "Token Changed";
+        this.setTimeout = setTimeout(() => {
+          this.$router.go();
+        }, 3000);
+      } catch (e) {
+        if (e.response.status === 400 || e.response.status === 422) {
+          this.status = false;
+          this.message = e.response.data.message;
+          this.setTimeout = setTimeout(() => {
+            this.$router.go();
+          }, 3000);
+        } else {
+          this.status = false;
+          this.message = "Connection problem, try checking your network";
+          this.setTimeout = setTimeout(() => {
+            this.$router.go();
+          }, 3000);
+        }
+      }
+    },
     async upgradeToMerchant() {
-      if (this.balance >= "1000") {
+      if (parseInt(this.balance) >= 1000) {
         const data = {
           m: "web",
         };
@@ -164,7 +194,6 @@ export default {
       const datas = {
         status: this.disablechecked,
       };
-      console.log(datas);
       try {
         const changeStatus = await axios.post(
           `${process.env.VUE_APP_BASE_URL}api/updatetokenstaus`,
@@ -203,10 +232,10 @@ export default {
       }
     },
     async switchToken() {
-      if (this.key === 1) {
-        this.key = "0";
+      if (this.disablechecked === true) {
+        this.key = 0;
       } else {
-        this.key = "1";
+        this.key = 1;
       }
       const datas = {
         status: this.key,
@@ -217,7 +246,8 @@ export default {
           datas
         );
         if (changeStatus.data.status === "true") {
-          this.key = changeStatus.data.data.tstatus;
+          console.log(changeStatus.data.data.tstatus);
+          this.disablechecked = changeStatus.data.data.tstatus;
           this.status = true;
           this.message = "Token state changed Successfully";
           this.setTimeout = setTimeout(() => {
@@ -248,39 +278,6 @@ export default {
       }
     },
   },
-  async regenerateToken() {
-    console.log("checked");
-    if (this.key === 1) {
-      this.key = "0";
-    } else {
-      this.key = "1";
-    }
-    const datas = {
-      ids: "1",
-    };
-    try {
-      await axios.post(`${process.env.VUE_APP_BASE_URL}api/chnagetoken`, datas);
-      this.status = true;
-      this.message = "Token Changed";
-      this.setTimeout = setTimeout(() => {
-        this.$router.go();
-      }, 3000);
-    } catch (e) {
-      if (e.response.status === 400 || e.response.status === 422) {
-        this.status = false;
-        this.message = e.response.data.message;
-        this.setTimeout = setTimeout(() => {
-          this.$router.go();
-        }, 3000);
-      } else {
-        this.status = false;
-        this.message = "Connection problem, try checking your network";
-        this.setTimeout = setTimeout(() => {
-          this.$router.go();
-        }, 3000);
-      }
-    }
-  },
 };
 </script>
 
@@ -294,7 +291,7 @@ export default {
           <div class="d-lg-flex justify-content-between">
             <b-card class="border border-pink w-100">
               <form
-                v-if="usertype === 2"
+                v-if="usertype === '2'"
                 style="place-items: center; align-items: center"
                 @submit.prevent="HandleSubmit"
               >
@@ -312,20 +309,6 @@ export default {
                   </textarea>
                 </div>
 
-                <div class="form-group">
-                  <label for="exampleInputEmail1"
-                    >Web Hook URL
-                    <small class="text-crimson">must be https://</small></label
-                  >
-                  <input
-                    v-model="webhook"
-                    type="text"
-                    class="form-control"
-                    aria-describedby="emailHelp"
-                    placeholder="Web Hook Url"
-                    required
-                  />
-                </div>
                 <div class="d-flex justify-content-between">
                   <label for="">Reload Access Token</label>
                   <input v-model="key" type="hidden" name="" />

@@ -8,7 +8,7 @@ export default {
 
   data() {
     return {
-      url: "https://tap.150psi.com/public/storage/images/",
+      url: "https://api.cardri.ng/public/storage/images/",
       title: this.$route.name,
     };
   },
@@ -189,7 +189,7 @@ export default {
     <div class="logo-box">
       <a href="/" class="logo text-center">
         <span class="logo-lg">
-          <img src="@assets/images/logo.png" alt="" height="16" />
+          <img src="@assets/images/logo.png" alt="" height="33" />
           <!--
           <h3
             class="m-10"

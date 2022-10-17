@@ -89,7 +89,8 @@ export default {
 
   methods: {
     async getEachNetwork(id) {
-      if (id === "1" && this.mtnapi === 1) {
+      // alert(id);
+      if (id === "1" && this.mtnapi === "1") {
         try {
           const plan = await axios.get(`${process.env.VUE_APP_BASE_URL}api/getmtnplans`);
           this.getplan = plan.data.data;

@@ -82,7 +82,7 @@ export default {
   methods: {
     HandleSubmit() {
       if (this.phone.toString().length === 11) {
-        if (this.balance >= this.amount) {
+        if (parseInt(this.balance) >= parseInt(this.amount)) {
           this.btnText = "Loading";
           this.isdisabled = true;
           const current = new Date();
@@ -198,7 +198,7 @@ export default {
                 </button>
               </form>
             </b-card>
-            <b class="w-100 glvl">
+            <b class="w-100 glvl mt-md-2">
               <h4 class="text-muted" style="margin-left: 10px; margin-top: 0px">
                 Recent Transaction
               </h4>
@@ -230,7 +230,7 @@ export default {
                       style="border-radius: 100%; overflow: hidden"
                     />
                     <img
-                      v-if="item.network === '2'"
+                      v-else-if="item.network === '2'"
                       src="../../../assets/images/airtel.png"
                       alt=""
                       width="100%"
@@ -238,7 +238,7 @@ export default {
                       style="border-radius: 100%; overflow: hidden"
                     />
                     <img
-                      v-if="item.network === '3'"
+                      v-else-if="item.network === '3'"
                       src="../../../assets/images/9moble.png"
                       alt=""
                       width="100%"
@@ -246,7 +246,7 @@ export default {
                       style="border-radius: 100%; overflow: hidden"
                     />
                     <img
-                      v-if="item.network === '4'"
+                      v-else-if="item.network === '4'"
                       src="../../../assets/images/glo.png"
                       alt=""
                       width="100%"

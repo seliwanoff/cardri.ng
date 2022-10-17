@@ -84,7 +84,7 @@ export default {
     }
     try {
       const transaction = await axios.get(
-        `${process.env.VUE_APP_BASE_URL}api/gettransaction?type=2`
+        `${process.env.VUE_APP_BASE_URL}api/gettransaction?type=3`
       );
 
       this.transaction = transaction.data.data;

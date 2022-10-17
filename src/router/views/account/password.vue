@@ -77,14 +77,6 @@ export default {
       console.log(e);
     }
 
-    try {
-      const transaction = await axios.get(
-        `${process.env.VUE_APP_BASE_URL}api/gettransaction?type=8`
-      );
-
-      this.transaction = transaction.data.data;
-    } catch (e) {}
-
     this.isLoading = false;
   },
 
@@ -168,7 +160,6 @@ export default {
           <div class="d-lg-flex justify-content-center">
             <b-card class="border border-pink w-100">
               <form
-                v-if="usertype === 2"
                 style="place-items: center; align-items: center"
                 @submit.prevent="HandleSubmit"
               >

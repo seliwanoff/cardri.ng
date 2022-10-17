@@ -19,7 +19,7 @@ export default {
       letdrops: "",
       hidemes: true,
       image: null,
-      url: "https://tap.150psi.com/public/storage/images/",
+      // url: "https://tap.150psi.com/public/storage/images/",
       isLoading: true,
       fullPage: true,
       color: "#0A1AA8",
@@ -43,6 +43,8 @@ export default {
       name: "",
       id: "",
       networkname: "",
+      type: 1,
+      banks: [],
     };
   },
 
@@ -73,6 +75,12 @@ export default {
       );
 
       this.transaction = transaction.data.data;
+    } catch (e) {}
+
+    try {
+      const createbank = await axios.get(`${process.env.VUE_APP_BASE_URL}api/getbanks`);
+      // console.log(createbank);
+      this.banks = createbank.data.Data.banks;
     } catch (e) {}
   },
 
@@ -150,6 +158,25 @@ export default {
             <b-card class="border border-pink w-100">
               <form @submit.prevent="HandleSubmit">
                 <Message :status="status" :message="message" />
+                <div class="form-group">
+                  <label for="bank selection">Select Type</label>
+                  <select v-model="type" name="" class="form-control">
+                    <option :value="1">Cardri Account</option>
+                    <option :value="2">BanK Transfer</option>
+                  </select>
+                </div>
+                <div v-if="type === 2" class="form-group">
+                  <label for="bank selection">Select Bank</label>
+                  <select v-model="type" name="" class="form-control">
+                    <option
+                      v-for="item in banks"
+                      :key="item.bankcode"
+                      :value="item.bankcode"
+                    >
+                      {{ item.bankName }}
+                    </option>
+                  </select>
+                </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Phone Number</label>
@@ -160,7 +187,7 @@ export default {
                     aria-describedby="emailHelp"
                     placeholder="Enter Recipient"
                     required
-                    @keydown="getUser"
+                    @keyup="getUser"
                   />
                 </div>
                 <div class="form-group">

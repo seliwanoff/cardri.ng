@@ -66,7 +66,7 @@ export default {
         <div class="text-center">
           <a href="/">
             <span>
-              <img src="@assets/images/logo.png" alt="" height="22" />
+              <img src="@assets/images/logo.png" alt="" height="33" />
             </span>
           </a>
           <p class="text-muted mt-2 mb-4"></p>
@@ -105,9 +105,9 @@ export default {
               </b-form-group>
 
               <b-form-group id="button-group" class="mt-4">
-                <b-button type="submit" variant="primary" class="btn-block"
-                  >Log In</b-button
-                >
+                <b-button type="submit" variant="primary" class="btn-block">{{
+                  btnText
+                }}</b-button>
               </b-form-group>
             </b-form>
           </div>

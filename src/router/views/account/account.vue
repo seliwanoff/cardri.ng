@@ -22,7 +22,7 @@ export default {
       letdrops: "",
       hidemes: true,
       image: null,
-      url: "https://tap.150psi.com/public/storage/images/",
+      url: "https://api.cardri.ng/public/storage/images/",
       isLoading: true,
       fullPage: true,
       color: "#0A1AA8",
@@ -76,13 +76,6 @@ export default {
       this.lname = user.data.data.lname;
       this.email = user.data.data.email;
       this.phone = user.data.data.phone;
-      console.log(this.image);
-
-      if (this.key === "1") {
-        this.disablechecked = true;
-      } else {
-        this.disablechecked = false;
-      }
     } catch (e) {
       console.log(e);
     }
@@ -208,7 +201,6 @@ export default {
           <div class="d-lg-flex justify-content-center">
             <b-card class="border border-pink w-100">
               <form
-                v-if="usertype === 2"
                 enctype="multipart/form-data"
                 style="place-items: center; align-items: center"
                 @submit.prevent="HandleSubmit"
